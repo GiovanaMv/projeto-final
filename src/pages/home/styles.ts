@@ -89,6 +89,7 @@ export const Card = styled.div`
       width: 82px;
       height: 24px;
       border: none;
+      cursor:pointer;
 
       a {
         color: #FFEBD9;
