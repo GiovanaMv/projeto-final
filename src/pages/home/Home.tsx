@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom'
 import PratoJapones from '../../assets/imagens/parto2-sushi.png'
 import PratoMacarrao from '../../assets/imagens/prato1-macarrao.png'
-// import PratoPizza from '../../assets/imagens/prato3-pizza.png'
 
 import { Container, Restaurantes, Card  } from './styles'
+import  Header  from '../../components/header/Header';
 
 function Home() {
     const navigate = useNavigate();
 
   return (
     <>
+    <Header />
         <Container>
             <Restaurantes>
                 <Card>
