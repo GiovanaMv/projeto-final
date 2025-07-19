@@ -1,66 +1,133 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom'; // Adicione isso
-import { useRestaurantes } from '../../hooks/useRestaurantes'; // Use seu hook
-import { Container, Card, Restaurantes } from './styles';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import PratoPizza from '../../assets/imagens/prato3-pizza.png'
+import PratoMacarrao from '../../assets/imagens/prato1-macarrao.png'
+import { Container, Card, Restaurantes } from './styles'
 
-import { ModalProduto, type Produto } from '../../components/modal-produtos/ModalProduto';
+import { ProdutoModal } from '../../components/modal-produtos/ModalProduto'
+import type { Produto } from '../types';
 
 function Pratos() {
-    const { id } = useParams(); // Pegue o ID do restaurante da URL
-    const { restaurantes, loading, error } = useRestaurantes();
-    const [modalProduto, setModalProduto] = useState<Produto | null>(null);
+    const navigate = useNavigate();
 
-    // Encontre o restaurante específico
-    const restaurante = restaurantes.find(r => r.id === Number(id));
+    const [modalProduto, setModalProduto] = useState<Produto | null>(null)
+    const [modalLoading, setModalLoading] = useState(false)
+    const [modalError, setModalError] = useState<string | null>(null)
 
-    if (loading) return <div>Carregando...</div>;
-    if (error) return <div>Erro: {error}</div>;
-    if (!restaurante) return <div>Restaurante não encontrado</div>;
+    function handleAddClick(produtoId: number) {
+        setModalLoading(true)
+        setModalProduto(null)
+        setModalError(null)
 
-    const handleAddClick = (produto: Produto) => {
-        setModalProduto(produto); // Agora recebe o produto diretamente
-    };
+        fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes`)
+            .then((res) => res.json())
+            .then((data) => {
+                // aqui você pode mudar conforme o formato da API
+                const todosProdutos = data.flatMap((rest: ProdutoModal) => rest.cardapio)
+                const produto = todosProdutos.find((p: Produto) => p.id === produtoId)
+
+                if (produto) {
+                    setModalProduto(produto)
+                } else {
+                    setModalError('Produto não encontrado')
+                }
+            })
+            .catch(() => setModalError('Erro ao carregar produto'))
+            .finally(() => setModalLoading(false))
+    }
 
     return (
         <>
             <Restaurantes>
-                <img src={restaurante.capa} alt={`Capa do ${restaurante.nome}`} />
+                <img src={PratoMacarrao} alt="Prato com massa Italiana" />
                 <div className='sombra'></div>
                 <div className='texto'>
-                    <p>{restaurante.tipo}</p>
-                    <h3>{restaurante.nome}</h3>
+                    <p>Italiana</p>
+                    <h3>La Dolce Vita Trattoria</h3>
                 </div>
             </Restaurantes>
 
             <Container>
-                {restaurante.pratos.map(produto => (
-                    <Card key={produto.id}>
-                        <header>
-                            <img src={produto.foto} alt={produto.nome} />
-                        </header>
-                        <div>
-                            <h3>{produto.nome}</h3>
-                            <p>{produto.descricao}</p>
-                            <button onClick={() => handleAddClick(produto)}>
-                                Adicionar ao carrinho
-                            </button>
-                        </div>
-                    </Card>
-                ))}
+
+                {modalLoading && <p>Carregando produto...</p>}
+                {modalError && <p>{modalError}</p>}
 
                 {modalProduto && (
-                    <ModalProduto
+                    <ProdutoModal
                         produto={modalProduto}
                         onClose={() => setModalProduto(null)}
                         onAddToCart={(p: unknown) => {
-                            console.log('Adicionado:', p);
-                            setModalProduto(null);
+                            console.log('Adicionado:', p)
+                            setModalProduto(null)
                         }}
                     />
                 )}
+
+
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('10')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
+                <Card>
+                    <header>
+                        <img src={PratoPizza} alt="Prato com comida Japonesa" />
+                    </header>
+                    <div>
+                        <h3>Pizza Marguerita</h3>
+                        <p>A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!</p>
+                        <button onClick={() => navigate('')}><a>Adicionar ao carrinho</a></button>
+                    </div>
+                </Card>
             </Container>
         </>
-    );
+    )
 }
 
-export default Pratos;
+export default Pratos 
