@@ -1,31 +1,44 @@
-import { useState, useEffect } from 'react';
+// src/hooks/useRestaurantes.ts
+import { useState, useEffect, type ReactNode } from 'react';
 
-export interface Produto {
-  id: string;
+// Adicione a tipagem do Produto se ainda não existir
+type Produto = {
+  id: number;
   nome: string;
   descricao: string;
-  foto: string;
   preco: number;
-  /* outros campos da API */
-}
+  foto: string;
+};
 
-export function useRestaurantes() {
-  const [produtos, setProdutos] = useState<Produto[]>([]);
+type RestauranteType = {
+  capa: string | undefined;
+  tipo: ReactNode;
+  id: number;
+  nome: string;
+  pratos: Produto[]; // Agora usando a tipagem Produto
+};
+
+export const useRestaurantes = () => {
+  const [restaurantes, setRestaurantes] = useState<RestauranteType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); // Adicione tratamento de erro
 
   useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then(res => {
-        if (!res.ok) throw new Error('Erro ao carregar');
-        return res.json();
-      })
-      .then(data => {
-        setProdutos(data.flatMap(r => r.pratos)); // assumindo propriedade "pratos"
-      })
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes');
+        if (!response.ok) throw new Error('Erro ao carregar dados');
+        const data = await response.json();
+        setRestaurantes(data);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Erro desconhecido');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  return { produtos, loading, error };
-}
+  return { restaurantes, loading, error }; // Retorne também o erro
+};
