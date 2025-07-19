@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Fundo from '../../assets/imagens/fundo.png';
 
-export const Banner = styled.div`
+export const HomeHeader = styled.div`
     background-image: url(${Fundo});
     height: 302px;
     display: flex;
@@ -24,4 +24,35 @@ export const Banner = styled.div`
     margin-top: 82px;
     }
     }
+`;
+
+export const PratosHeader = styled.div`
+    background-image: url(${Fundo});
+    height: 132px;
+    padding-top: 32px;
+
+    div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      img {
+      margin-left: 48px;
+      }
+
+      button {
+      background-color: transparent;
+      border: none;
+
+      a {
+        text-decoration: none;
+        color: #E66767;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 900;
+      }
+    }
+    
+    }
+    
 `;
