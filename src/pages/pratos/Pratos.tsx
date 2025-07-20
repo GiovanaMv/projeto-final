@@ -1,41 +1,39 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PratoPizza from '../../assets/imagens/prato3-pizza.png'
 import PratoMacarrao from '../../assets/imagens/prato1-macarrao.png'
 import { Container, Card, Restaurantes } from './styles'
 
-import { ProdutoModal } from '../../components/modal-produtos/ModalProduto'
-import type { Produto } from '../types';
+// import { ProdutoModal } from '../../components/modal-produtos/ModalProduto'
+// import type { Produto } from '../types';
 
 function Pratos() {
     const navigate = useNavigate();
 
-    const [modalProduto, setModalProduto] = useState<Produto | null>(null)
-    const [modalLoading, setModalLoading] = useState(false)
-    const [modalError, setModalError] = useState<string | null>(null)
+    // const [modalProduto, setModalProduto] = useState<Produto | null>(null)
+    // const [modalLoading, setModalLoading] = useState(false)
+    // const [modalError, setModalError] = useState<string | null>(null)
 
-    function handleAddClick(produtoId: number) {
-        setModalLoading(true)
-        setModalProduto(null)
-        setModalError(null)
+    // function handleAddClick(produtoId: number) {
+    //     setModalLoading(true)
+    //     setModalProduto(null)
+    //     setModalError(null)
 
-        fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes`)
-            .then((res) => res.json())
-            .then((data) => {
-                // aqui você pode mudar conforme o formato da API
-                const todosProdutos = data.flatMap((rest: ProdutoModal) => rest.cardapio)
-                const produto = todosProdutos.find((p: Produto) => p.id === produtoId)
+    //     fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             // aqui você pode mudar conforme o formato da API
+    //             const todosProdutos = data.flatMap((rest: ProdutoModal) => rest.cardapio)
+    //             const produto = todosProdutos.find((p: Produto) => p.id === produtoId)
 
-                if (produto) {
-                    setModalProduto(produto)
-                } else {
-                    setModalError('Produto não encontrado')
-                }
-            })
-            .catch(() => setModalError('Erro ao carregar produto'))
-            .finally(() => setModalLoading(false))
-    }
+    //             if (produto) {
+    //                 setModalProduto(produto)
+    //             } else {
+    //                 setModalError('Produto não encontrado')
+    //             }
+    //         })
+    //         .catch(() => setModalError('Erro ao carregar produto'))
+    //         .finally(() => setModalLoading(false))
+    // }
 
     return (
         <>
@@ -49,7 +47,7 @@ function Pratos() {
             </Restaurantes>
 
             <Container>
-
+{/* 
                 {modalLoading && <p>Carregando produto...</p>}
                 {modalError && <p>{modalError}</p>}
 
@@ -62,7 +60,7 @@ function Pratos() {
                             setModalProduto(null)
                         }}
                     />
-                )}
+                )} */}
 
 
                 <Card>

@@ -1,4 +1,3 @@
-// src/components/ModalProduto.styles.ts
 import styled from 'styled-components';
 
 export const ModalOverlay = styled.div`
@@ -23,4 +22,4 @@ export const ModalContainer = styled.div`
 `;
 export const ModalHeader = styled.header``;
 export const ModalContent = styled.div``;
-export const ModalFooter = styled.footer``;// src/components/ModalProduto.styles.ts
+export const ModalFooter = styled.footer``;
