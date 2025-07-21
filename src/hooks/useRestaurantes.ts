@@ -8,6 +8,7 @@ type Produto = {
   descricao: string;
   preco: number;
   foto: string;
+  porcao: string;
 };
 
 type RestauranteType = {

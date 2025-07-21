@@ -99,12 +99,31 @@ padding: 9px;
         color: #E66767;
         border: none;
         cursor: pointer;
-
-        a {
-            font-family: Roboto;
+        font-weight: 700;
+        font-family: Roboto;
             font-size: 14px;
-            font-weight: 700;
-        }
     }
     }
+`
+
+
+export const LoadingOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* fundo escurecido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+`
+
+export const LoadingText = styled.p`
+  background-color: #fff;
+  padding: 24px 32px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
 `;
