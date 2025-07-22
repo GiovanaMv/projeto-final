@@ -43,6 +43,12 @@ export const PratosHeader = styled.div`
       button {
       background-color: transparent;
       border: none;
+       text-decoration: none;
+        color: #E66767;
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 900;
+        cursor: pointer;
 
       a {
         text-decoration: none;

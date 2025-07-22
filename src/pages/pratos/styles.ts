@@ -113,7 +113,7 @@ export const LoadingOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* fundo escurecido */
+  background-color: rgba(0, 0, 0, 0.5); 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,8 +122,8 @@ export const LoadingOverlay = styled.div`
 
 export const LoadingText = styled.p`
   background-color: #fff;
-  padding: 24px 32px;
-  border-radius: 8px;
+  padding: 18px 28px;
+  border-radius: 3px;
   font-size: 20px;
   font-weight: bold;
 `;
