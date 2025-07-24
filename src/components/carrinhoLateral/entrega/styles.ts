@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
-export const CarrinhoWrapper = styled.div<{ aberto: boolean }>`
+export const Entrega = styled.div`
   position: fixed;
   top: 0;
-  right: ${({ aberto }) => (aberto ? '0' : '-400px')};
   width: 360px;
   height: 100vh;
   background-color: #e66767;
