@@ -112,7 +112,8 @@ export const CarrinhoLateral = ({ aberto }: Props) => {
           }
         },
           nome: delivery.nome,
-          total
+          total,
+          produtos: cartItems.map((item: any) => item.id)
         });
 
       setEtapa('confirmacao');

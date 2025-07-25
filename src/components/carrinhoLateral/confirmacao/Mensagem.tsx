@@ -45,6 +45,7 @@ type Props = {
       zipCode: string;
     };
     total: number;
+    produtos: number[];
   };
   onClose: () => void;
 };

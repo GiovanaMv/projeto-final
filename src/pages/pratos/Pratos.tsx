@@ -15,6 +15,7 @@ function Pratos() {
     setModalLoading(true)
     setModalProduto(null)
     setModalError(null)
+    
 
     try {
       const res = await fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
