@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { useCart } from '../../contexts/CartContext';
-import { CarrinhoWrapper, Produto, ProdutoInfo, ProdutoImg, Footer } from './styled';
-import { DivEntrega, LabelReceber, LabelEndereco, LabelNumber, LabelCidade, LabelCEP, LabelComplemento, ContinuarPagamento, VoltarCarrinho } from './styled';
-import { DivPagamento, LabelCartao, LabelNumberCart, LabelCVV, LabelMes, LabelAno, Finalizar, VoltarEndereco } from './styled';
+import { CarrinhoWrapper, Produto, ProdutoInfo, ProdutoImg, Footer } from './styles';
+import { DivEntrega, ContinuarPagamento, VoltarCarrinho } from './styles';
+import { DivPagamento, LabelNumberCart, LabelCVV, LabelAno, Finalizar, VoltarEndereco } from './styles';
 
 import PratoPizza from '../../assets/imagens/prato3-pizza.png';
 import Mensagem from './confirmacao/Mensagem';
@@ -58,14 +58,36 @@ export const CarrinhoLateral = ({ aberto }: Props) => {
   const [confirmacao, setConfirmacao] = useState<any>(null);
 
   const handleSubmitCheckout = async () => {
+    if (!payment.nomeCartao || !payment.numeroCartao || !payment.cvv || !payment.mes || !payment.ano) {
+      alert('Por favor, preencha todos os campos obrigatórios de pagamento.');
+      return;
+    }
     const body = {
-      ...delivery,
-      numero: parseInt(delivery.numero),
-      cep: parseInt(delivery.cep.replace('-', '')),
-      produtos: cartItems.map((item: any) => ({
+      products: cartItems.map((item: any) => ({
         id: item.id,
-        preco: item.preco
-      }))
+        price: item.preco
+      })),
+      delivery: {
+        receiver: delivery.nome,
+        address: {
+          description: delivery.endereco,
+          city: delivery.cidade,
+          zipCode: delivery.cep,
+          number: Number(delivery.numero),
+          complement: delivery.complemento || ''
+        }
+      },
+      payment: {
+        card: {
+          name: payment.nomeCartao,
+          number: payment.numeroCartao,
+          code: Number(payment.cvv),
+          expires: {
+            month: Number(payment.mes),
+            year: Number(payment.ano)
+          }
+        }
+      }
     };
 
     try {
@@ -79,11 +101,19 @@ export const CarrinhoLateral = ({ aberto }: Props) => {
       console.log('Resposta da API:', resultado);
 
       setConfirmacao({
-  orderId: resultado.orderId,
-  nome: delivery.nome,
-  endereco: delivery.endereco + ', ' + delivery.numero + (delivery.complemento ? ' - ' + delivery.complemento : ''),
-  total
-});
+        orderId: resultado.orderId,
+        delivery: {
+          address: {
+            description: delivery.endereco,
+            city: delivery.cidade,
+            zipCode: delivery.cep,
+            number: delivery.numero,
+            complement: delivery.complemento
+          }
+        },
+          nome: delivery.nome,
+          total
+        });
 
       setEtapa('confirmacao');
     } catch (erro) {
@@ -124,37 +154,63 @@ export const CarrinhoLateral = ({ aberto }: Props) => {
       {etapa === 'entrega' && (
         <DivEntrega>
           <h3>Entrega</h3>
-          <LabelReceber>Quem irá receber <input  value={delivery.nome} onChange={(e) => setDelivery({ ...delivery, nome: e.target.value })} /> </LabelReceber>
-          <LabelEndereco>Endereço<input value={delivery.endereco} onChange={(e) => setDelivery({ ...delivery, endereco: e.target.value })} /> </LabelEndereco>
-          <LabelCidade>Cidade<input value={delivery.cidade} onChange={(e) => setDelivery({ ...delivery, cidade: e.target.value })} /></LabelCidade>
-          <LabelCEP>CEP<input value={delivery.cep} onChange={(e) => setDelivery({ ...delivery, cep: e.target.value })} /></LabelCEP>
-          <LabelNumber>Número<input value={delivery.numero} onChange={(e) => setDelivery({ ...delivery, numero: e.target.value })} /></LabelNumber>
-          <LabelComplemento>Complemento (Opcional)<input value={delivery.complemento} onChange={(e) => setDelivery({ ...delivery, complemento: e.target.value })} /></LabelComplemento>
+          <label>Quem irá receber <input type='text'  value={delivery.nome} onChange={(e) => setDelivery({ ...delivery, nome: e.target.value })} /> </label>
+          <label>Endereço<input type='text' value={delivery.endereco} onChange={(e) => setDelivery({ ...delivery, endereco: e.target.value })} /> </label>
+          <label>Cidade<input type='text' value={delivery.cidade} onChange={(e) => setDelivery({ ...delivery, cidade: e.target.value })} /></label>
+          <div>
+            <label>CEP<input type='number' value={delivery.cep} onChange={(e) => setDelivery({ ...delivery, cep: e.target.value })} /></label>
+          <label>Número<input type='number' value={delivery.numero} onChange={(e) => setDelivery({ ...delivery, numero: e.target.value })} /></label>
+          </div>
+          <label>Complemento (Opcional)<input value={delivery.complemento} onChange={(e) => setDelivery({ ...delivery, complemento: e.target.value })} /></label>
 
-          <ContinuarPagamento onClick={() => setEtapa('pagamento')}> Continuar com o pagamento </ContinuarPagamento>
-          <VoltarCarrinho onClick={() => setEtapa('carrinho')}>  Voltar para o carrinho  </VoltarCarrinho>
+           <div className="buttonsentrega">
+            <ContinuarPagamento
+              onClick={() => {
+                if (!delivery.nome || !delivery.endereco || !delivery.cidade || !delivery.cep || !delivery.numero) {
+                  alert('Por favor, preencha todos os campos obrigatórios de entrega.');
+                  return;
+                }
+                setEtapa('pagamento');
+              }}
+            >
+              Continuar com o pagamento
+            </ContinuarPagamento>
+            <VoltarCarrinho onClick={() => setEtapa('carrinho')}>Voltar para o carrinho</VoltarCarrinho>
+          </div>
         </DivEntrega>
       )}
 
       {etapa === 'pagamento' && (
         <DivPagamento>
           <h3>Pagamento – Valor a pagar R$ {total.toFixed(2)}</h3>
-          <LabelCartao>Nome do cartão<input value={payment.nomeCartao} onChange={(e) => setPayment({ ...payment, nomeCartao: e.target.value })} /></LabelCartao>
-          <LabelNumberCart>Número do cartão<input value={payment.numeroCartao} onChange={(e) => setPayment({ ...payment, numeroCartao: e.target.value })} /></LabelNumberCart>
-          <LabelCVV>CVV<input value={payment.cvv} onChange={(e) => setPayment({ ...payment, cvv: e.target.value })} /></LabelCVV>
-          <LabelMes>Mês de vencimento<input value={payment.mes} onChange={(e) => setPayment({ ...payment, mes: e.target.value })} /></LabelMes>
-          <LabelAno>Ano de vencimento<input value={payment.ano} onChange={(e) => setPayment({ ...payment, ano: e.target.value })} /></LabelAno>
+          <label>Nome no cartão<input type='text' value={payment.nomeCartao} onChange={(e) => setPayment({ ...payment, nomeCartao: e.target.value })} /></label>
           
-          <Finalizar onClick={handleSubmitCheckout} style={{ marginTop: 10 }}>  Finalizar pagamento  </Finalizar>
-          <VoltarEndereco onClick={() => setEtapa('entrega')} style={{ marginTop: 10 }}> Voltar para a edição de endereço</VoltarEndereco>
+          <div className="numberCVV">
+            <LabelNumberCart>Número do cartão<input inputMode='numeric' value={payment.numeroCartao} onChange={(e) => setPayment({ ...payment, numeroCartao: e.target.value })} /></LabelNumberCart>
+            <LabelCVV>CVV<input type='number' value={payment.cvv} onChange={(e) => setPayment({ ...payment, cvv: e.target.value })} /></LabelCVV>
+          </div>
+
+          <div className="mesAno">
+            <label>Mês de vencimento<input type='number'  value={payment.mes} onChange={(e) => setPayment({ ...payment, mes: e.target.value })} /></label>
+            <LabelAno>Ano de vencimento<input type='number' value={payment.ano} onChange={(e) => setPayment({ ...payment, ano: e.target.value })} /></LabelAno>
+          </div>
+          
+           <Finalizar onClick={handleSubmitCheckout} style={{ marginTop: 10 }}>
+            Finalizar pagamento
+          </Finalizar>
+          <VoltarEndereco onClick={() => setEtapa('entrega')} style={{ marginTop: 10 }}>
+            Voltar para a edição de endereço
+          </VoltarEndereco>
         </DivPagamento>
       )}
 
       {etapa === 'confirmacao' && confirmacao && (
-      <Mensagem confirmacao={confirmacao} onClose={() => {
-        setEtapa('carrinho');
-        setConfirmacao(null);
-      }} 
+        <Mensagem
+          confirmacao={confirmacao}
+          onClose={() => {
+            setEtapa('carrinho');
+            setConfirmacao(null);
+          }}
       />
     )}
     </CarrinhoWrapper>

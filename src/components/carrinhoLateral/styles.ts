@@ -1,0 +1,211 @@
+import styled from 'styled-components';
+
+export const CarrinhoWrapper = styled.div<{ $aberto: boolean }>`
+  position: fixed;
+  top: 0;
+  right: ${({ $aberto }) => ($aberto ? '0' : '-400px')};
+  width: 360px;
+  height: 100vh;
+  background-color: #e66767;
+  color: white;
+  padding: 10px;
+  box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+  transition: right 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+`;
+
+export const Produto = styled.div`
+  display: flex;
+  align-items: center;
+  background: #FFEBD9;
+  color: #e66767;
+  margin-bottom: 10px;
+  overflow: hidden;
+  margin-top: 3px;
+
+  button {
+    border: none;
+    background-color: transparent;
+    color: #e66767;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 68px;
+    }
+`;
+
+export const ProdutoInfo = styled.div`
+  flex: 1;
+  padding: 12px;
+  width: 344px;
+  height: 100px;
+
+  h4 {
+    font-size: 18px;
+    font-weight: 800;
+    font-family: 'Roboto';
+  }
+
+  p {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 22px;
+  }
+`;
+
+export const ProdutoImg = styled.img`
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-left: 8px;
+`;
+
+export const Footer = styled.div`
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: right;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  button {
+    width: 340px;
+    height: 28px;
+    background: #FFEBD9;
+    border: none;
+    color: #e66767;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  padding: 0;
+  line-height: normal;
+  cursor: pointer;
+  }
+`;
+
+export const DivEntrega = styled.div`
+  input {
+    display: block;
+    border: none;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    background-color: #FFEBD9;
+    width: 340px;
+    height: 32px;
+  }
+  label {
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Roboto';
+    margin-bottom: 12px;
+    margin-top: 18px;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      width: 155px;
+    }
+  }
+  .buttonsentrega {
+    display: block;
+  }
+`;
+export const ContinuarPagamento = styled.button`
+  width: 100%;
+  border: none;
+  width: 344px;
+  height: 24px;
+  font-weight: 700;
+  background-color: #FFEBD9;
+  color: #E66767;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 12px;
+`;
+export const VoltarCarrinho = styled.button`
+  width: 100%;
+  border: none;
+  width: 344px;
+  height: 24px;
+  font-weight: 700;
+  background-color: #FFEBD9;
+  color: #E66767;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 7px;
+`;
+
+export const DivPagamento = styled.div`
+  input {
+    display: block;
+    border: none;
+    margin-top: 6px;
+    margin-bottom: 8px;
+    background-color: #FFEBD9;
+    width: 100%;
+    height: 32px;
+  }
+  label {
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Roboto';
+    margin-bottom: 12px;
+    margin-top: 18px;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    display: block;
+    width: 100%;
+    font-weight: 700;
+    background-color: #FFEBD9;
+    color: #E66767;
+    cursor: pointer;
+    font-size: 14px;
+  }
+}
+  .mesAno {
+    gap: 32px;
+  }
+`;
+export const LabelNumberCart = styled.label`
+  input {
+  width: 228px;
+  }
+`;
+export const LabelCVV = styled.label`
+  input {
+  width: 87px;
+  }
+`;
+export const Finalizar = styled.button`
+  border: none;
+  height: 24px;
+`;
+export const VoltarEndereco = styled.button`
+  border: none;
+  height: 24px;
+`;
+
+export const LabelAno = styled.label`
+  input {
+    margin-bottom: 18px;
+  }
+`;
