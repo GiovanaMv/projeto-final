@@ -31,7 +31,7 @@ type PaymentData = {
 
 type Etapa = 'carrinho' | 'entrega' | 'pagamento' | 'confirmacao' | '../../pages/pratos/Pratos.tsx';
 
-export const CarrinhoLateral = ({ aberto }: Props) => {
+export const CarrinhoLateral = ({ aberto, onClose }: Props) => {
   const { cartItems, removeFromCart } = useCart();
   const total = cartItems.reduce((acc: any, item: { preco: number }) => acc + item.preco, 0);
 
@@ -207,10 +207,7 @@ export const CarrinhoLateral = ({ aberto }: Props) => {
       {etapa === 'confirmacao' && confirmacao && (
         <Mensagem
           confirmacao={confirmacao}
-          onClose={() => {
-            setEtapa('carrinho');
-            setConfirmacao(null);
-          }}
+          onClose={onClose}
       />
     )}
     </CarrinhoWrapper>
