@@ -4,7 +4,6 @@ import { useCart } from '../../contexts/CartContext';
 import { CarrinhoWrapper, Produto, ProdutoInfo, ProdutoImg, Footer } from './styles';
 import { DivEntrega, ContinuarPagamento, VoltarCarrinho } from './styles';
 import { DivPagamento, LabelNumberCart, LabelCVV, LabelAno, Finalizar, VoltarEndereco } from './styles';
-
 import PratoPizza from '../../assets/imagens/prato3-pizza.png';
 import Mensagem from './confirmacao/Mensagem';
 

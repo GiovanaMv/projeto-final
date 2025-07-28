@@ -36,7 +36,7 @@ function Home() {
                     </div>
                     </header>
                     <main>
-                        <h3>La Dolce Vita Trattoria <strong>4.9<i className="bi bi-star-fill "></i></strong></h3>
+                        <h3>La Dolce Vita Trattoria <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
                         <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
                         <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
                     </main>
@@ -52,7 +52,7 @@ function Home() {
                     </div>
                     </header>
                     <main>
-                        <h3>Hioki Sushi <strong>4.9<i className="bi bi-star-fill ms-5"></i></strong></h3>
+                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill ms-5"></i></strong></h3>
                         <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
                         <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
                     </main>
@@ -68,7 +68,7 @@ function Home() {
                     </div>
                     </header>
                     <main>
-                        <h3>Hioki Sushi <strong>4.9<i className="bi bi-star-fill "></i></strong></h3>
+                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
                         <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
                         <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
                     </main>
@@ -84,7 +84,7 @@ function Home() {
                     </div>
                     </header>
                     <main>
-                        <h3>Hioki Sushi <strong>4.9<i className="bi bi-star-fill ms-5"></i></strong></h3>
+                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill ms-5"></i></strong></h3>
                         <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
                         <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
                     </main>
@@ -100,7 +100,7 @@ function Home() {
                     </div>
                     </header>
                     <main>
-                        <h3>Hioki Sushi <strong>4.9<i className="bi bi-star-fill "></i></strong></h3>
+                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
                         <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
                         <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
                     </main>

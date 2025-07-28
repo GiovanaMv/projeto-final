@@ -57,6 +57,8 @@ const Mensagem = ({ confirmacao, onClose }: Props) => {
     <Container>
       <h2>Pedido realizado – <strong>{idFormatado}</strong></h2>
 
+       <p><strong>IDs dos produtos:</strong> {confirmacao.produtos.join(', ')}</p>
+
       <p>Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, será entregue no endereço fornecido.</p>
       <p>Gostaríamos de ressaltar que nossos entregadores não estão autorizados a realizar cobranças extras.</p>
       <p>Lembre-se de higienizar as mãos após o recebimento do pedido.</p>
