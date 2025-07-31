@@ -1,64 +1,66 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Container, LoadingOverlay, LoadingText, Card, Restaurantes } from './styles'
 import { ModalProduto, type Produto } from '../../components/modal-produtos/ModalProduto'
 
-
-import  PratoMacarrao  from '../../assets/imagens/prato1-macarrao.png'
-import PratoPizza from '../../assets/imagens/prato3-pizza.png'
+interface Restaurante {
+  id: number
+  titulo: string
+  tipo: string
+  capa: string
+  cardapio: Produto[]
+}
 
 function Pratos() {
+  const { id } = useParams()
+  const [restaurante, setRestaurante] = useState<Restaurante | null>(null)
   const [modalProduto, setModalProduto] = useState<Produto | null>(null)
-  const [modalLoading, setModalLoading] = useState(false)
-  const [modalError, setModalError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleAddClick = async (produtoId: number) => {
-    setModalLoading(true)
-    setModalProduto(null)
-    setModalError(null)
-    
+  useEffect(() => {
+    fetch('https://ebac-fake-api.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((data: Restaurante[]) => {
+        const encontrado = data.find((rest) => rest.id === Number(id))
+        if (encontrado) {
+          setRestaurante(encontrado)
+        } else {
+          setError('Restaurante não encontrado.')
+        }
+      })
+      .catch(() => setError('Erro ao carregar restaurante.'))
+      .finally(() => setLoading(false))
+  }, [id])
 
-    try {
-      const res = await fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      const data = await res.json()
+  const handleAddClick = (produto: Produto) => {
+    setModalProduto(produto)
+  }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const todosProdutos = data.flatMap((rest: any) => rest.cardapio || rest.pratos)
-      const produto = todosProdutos.find((p: Produto) => p.id === produtoId)
+  if (loading) {
+    return (
+      <LoadingOverlay>
+        <LoadingText>Carregando restaurante...</LoadingText>
+      </LoadingOverlay>
+    )
+  }
 
-      if (produto) {
-        setModalProduto(produto)
-      } else {
-        setModalError('Produto não encontrado.')
-      }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setModalError('Erro ao buscar produto.')
-    } finally {
-      setModalLoading(false)
-    }
+  if (error || !restaurante) {
+    return <p>{error || 'Erro inesperado.'}</p>
   }
 
   return (
     <>
       <Restaurantes>
-        <img src={PratoMacarrao} alt="Prato com massa Italiana" />
+        <img src={restaurante.capa} alt={`Imagem do restaurante ${restaurante.titulo}`} />
         <div className="sombra"></div>
         <div className="texto">
-          <p>Italiana</p>
-          <h3>La Dolce Vita Trattoria</h3>
+          <p>{restaurante.tipo}</p>
+          <h3>{restaurante.titulo}</h3>
         </div>
       </Restaurantes>
 
       <Container>
-        {modalLoading && (
-            <LoadingOverlay>
-                <LoadingText>
-                    Carregando produto...
-                </LoadingText>
-            </LoadingOverlay>
-        )}
-        {modalError && <p>{modalError}</p>}
-
         {modalProduto && (
           <ModalProduto
             produto={modalProduto}
@@ -70,18 +72,15 @@ function Pratos() {
           />
         )}
 
-        {[1, 2, 3, 4, 5, 6].map((_, i) => (
-          <Card key={i}>
+        {restaurante.cardapio.map((prato) => (
+          <Card key={prato.id}>
             <header>
-              <img src={PratoPizza} alt="Pizza" />
+              <img src={prato.foto} alt={prato.nome} />
             </header>
             <div>
-              <h3>Pizza Marguerita</h3>
-              <p>
-                A clássica Marguerita: molho de tomate suculento, mussarela derretida,
-                manjericão fresco e um toque de azeite. Sabor e simplicidade!
-              </p>
-              <button onClick={() => handleAddClick(17)}>Adicionar ao carrinho</button>
+              <h3>{prato.nome}</h3>
+              <p>{prato.descricao}</p>
+              <button onClick={() => handleAddClick(prato)}>Adicionar ao carrinho</button>
             </div>
           </Card>
         ))}

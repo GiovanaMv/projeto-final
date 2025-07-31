@@ -22,7 +22,7 @@ function Header() {
         </HomeHeader>
       )}
 
-      {location.pathname === '/pratos' && (
+      {location.pathname.startsWith('/pratos') && (
         <PratosHeader>
           <div>
             <button onClick={() => navigate(-1)}><a>Restaurantes</a></button>

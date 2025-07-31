@@ -54,7 +54,7 @@ export const Container = styled.div`
 
 export const Card = styled.div`
 Width: 320px;
-Height: 338px;
+Height: 420px;
 background-color: #E66767;
 color: #FFEBD9;
 font-family: 'Roboto';
@@ -74,7 +74,6 @@ padding: 9px;
     }
     
     div {
-        
         h3 {
         margin: 8px auto;
         font-size: 16px;
@@ -94,14 +93,14 @@ padding: 9px;
     button {
         Width: 298px;
         height: 24px;
-        margin: 0 auto;
+        margin: 86px auto;
         background-color: #FFEBD9;
         color: #E66767;
         border: none;
         cursor: pointer;
         font-weight: 700;
         font-family: Roboto;
-            font-size: 14px;
+        font-size: 14px;
     }
     }
 `

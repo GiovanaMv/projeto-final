@@ -59,10 +59,12 @@ export const Card = styled.div`
     border-top: none;
     height: 181px;
     padding: 6px;
-    
+
+    display: flex;
+    flex-direction: column;
 
     h3 {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     font-weight: 700;
     font-size: 18px;
     display: flex;
@@ -81,7 +83,7 @@ export const Card = styled.div`
       font-weight: 400;
       font-size: 14px;
       line-height: 22px;
-      margin-bottom: 18px;
+      margin-bottom: 8px;
     }
 
     button {

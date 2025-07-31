@@ -1,113 +1,66 @@
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import PratoJapones from '../../assets/imagens/parto2-sushi.png'
-import PratoMacarrao from '../../assets/imagens/prato1-macarrao.png'
+import axios from 'axios'
 
-import { Container, Restaurantes, Card  } from './styles'
+import { Container, Restaurantes, Card } from './styles'
+
+interface Restaurante {
+  id: number
+  titulo: string
+  tipo: string
+  destacado: boolean
+  avaliacao: number
+  descricao: string
+  capa: string
+}
 
 function Home() {
-    const navigate = useNavigate();
+  
+  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    axios
+      .get('https://ebac-fake-api.vercel.app/api/efood/restaurantes')
+      .then((response) => {
+        setRestaurantes(response.data)
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar restaurantes:', error)
+      })
+  }, [])
 
   return (
-    <>
-        <Container>
-            <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoJapones} alt="Prato com comida Japonesa" />
-                        <div className="tag-container">
-                        <span className="tag">Destaque da semana</span>
-                        <span className="tag secondary">Japonesa</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>Hioki Sushi <strong>4.9<i className="bi bi-star-fill"></i></strong></h3>
-                        <p>Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-
-            <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoMacarrao} alt="Prato com comida Italiana" />
-                        <div className="tag-container">
-                        <span className="tag secondary">Italiana</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>La Dolce Vita Trattoria <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
-                        <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-
-             <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoMacarrao} alt="Prato com comida Japonesa" />
-                        <div className="tag-container">
-                        <span className="tag secondary">Italiana</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill ms-5"></i></strong></h3>
-                        <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-
-            <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoMacarrao} alt="Prato com comida Japonesa" />
-                        <div className="tag-container">
-                        <span className="tag secondary">Italiana</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
-                        <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-
-             <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoMacarrao} alt="Prato com comida Japonesa" />
-                        <div className="tag-container">
-                        <span className="tag secondary">Italiana</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill ms-5"></i></strong></h3>
-                        <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-
-            <Restaurantes>
-                <Card>
-                    <header>
-                        <img src={PratoMacarrao} alt="Prato com comida Japonesa" />
-                        <div className="tag-container">
-                        <span className="tag secondary">Italiana</span>
-                    </div>
-                    </header>
-                    <main>
-                        <h3>Hioki Sushi <strong>4.6<i className="bi bi-star-fill "></i></strong></h3>
-                        <p>A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!</p>
-                        <button onClick={() => navigate('./pratos')}><a >Saiba mais</a></button>
-                    </main>
-                </Card>
-            </Restaurantes>
-        </Container>
-    </>
+    <Container>
+      {restaurantes.slice(0, 6).map((restaurante) => (
+        <Restaurantes key={restaurante.id}>
+          <Card>
+            <header>
+              <img src={restaurante.capa} alt={`Imagem do restaurante ${restaurante.titulo}`} />
+              <div className="tag-container">
+                {restaurante.destacado && (
+                  <span className="tag">Destaque da semana</span>
+                )}
+                <span className="tag secondary">{restaurante.tipo}</span>
+              </div>
+            </header>
+            <main>
+              <h3>
+                {restaurante.titulo}{' '}
+                <strong>
+                  {restaurante.avaliacao}
+                  <i className="bi bi-star-fill"></i>
+                </strong>
+              </h3>
+              <p>{restaurante.descricao}</p>
+              <button onClick={() => navigate(`/pratos/${restaurante.id}`)}>
+                <a>Saiba mais</a>
+              </button>
+            </main>
+          </Card>
+        </Restaurantes>
+      ))}
+    </Container>
   )
 }
 

@@ -4,7 +4,6 @@ import { useCart } from '../../contexts/CartContext';
 import { CarrinhoWrapper, Produto, ProdutoInfo, ProdutoImg, Footer } from './styles';
 import { DivEntrega, ContinuarPagamento, VoltarCarrinho } from './styles';
 import { DivPagamento, LabelNumberCart, LabelCVV, LabelAno, Finalizar, VoltarEndereco } from './styles';
-import PratoPizza from '../../assets/imagens/prato3-pizza.png';
 import Mensagem from './confirmacao/Mensagem';
 
 type Props = {
@@ -128,7 +127,7 @@ export const CarrinhoLateral = ({ aberto, onClose }: Props) => {
         <>
           {cartItems.map((item, index) => (
             <Produto key={index}>
-              <ProdutoImg src={PratoPizza} alt="Imagem" />
+              <ProdutoImg src={item.foto} alt={item.nome} />
               <ProdutoInfo>
                 <h4>{item.nome}</h4>
                 <p>R$ {item.preco.toFixed(2)}</p>
@@ -138,7 +137,6 @@ export const CarrinhoLateral = ({ aberto, onClose }: Props) => {
               </button>
             </Produto>
           ))}
-
           <Footer>
             <div>
               <p>Valor total</p>
